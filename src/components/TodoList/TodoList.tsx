@@ -1,13 +1,12 @@
 /* eslint-disable */
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Todo } from '../../types/Todo';
 import classNames from 'classnames';
 import { currentTodoSlice } from '../../features/currentTodo';
 
 export const TodoList: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const todos = useAppSelector(state => state.todos);
   const currentTodo = useAppSelector(state => state.currentTodo);
   const { query, status } = useAppSelector(state => state.filter);
@@ -27,12 +26,6 @@ export const TodoList: React.FC = () => {
     todo.title.toLowerCase().includes(query.toLowerCase())
   ));
 
-  if (visibleTodos.length <= 0) {
-    <p className="notification is-warning">
-      There are no todos matching current filter criteria
-    </p>
-  }
-
   return (
     <table className="table is-narrow is-fullwidth">
       <thead>
@@ -51,10 +44,20 @@ export const TodoList: React.FC = () => {
       </thead>
 
       <tbody>
+        {visibleTodos.length <= 0 && (
+          <p className="notification is-warning">
+            There are no todos matching current filter criteria
+          </p>
+        )}
+
         {visibleTodos.map(todo => {
 
           return (
-            <tr data-cy="todo" className={classNames({'has-background-info-light': todo.id === currentTodo?.id})}>
+            <tr
+              data-cy="todo"
+              className={classNames({ 'has-background-info-light': todo.id === currentTodo?.id })}
+              key={todo.id}
+            >
               <td className="is-vcentered">{todo.id}</td>
               <td className="is-vcentered">
                 {todo.completed && (

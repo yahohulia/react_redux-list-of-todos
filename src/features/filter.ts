@@ -3,7 +3,7 @@ import { Status } from '../types/Status';
 
 export interface FilterType {
   query: string;
-  status: string;
+  status: Status;
 }
 
 const initialState = {

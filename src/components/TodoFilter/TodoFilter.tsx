@@ -1,11 +1,10 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { filterSlice } from '../../features/filter';
 import { Status } from '../../types/Status';
 
 export const TodoFilter: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { query, status } = useAppSelector(state => state.filter);
 
   return (
@@ -50,6 +49,7 @@ export const TodoFilter: React.FC = () => {
           {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
           {query && (
             <button
+              aria-label="Clear search"
               data-cy="clearSearchButton"
               type="button"
               className="delete"
