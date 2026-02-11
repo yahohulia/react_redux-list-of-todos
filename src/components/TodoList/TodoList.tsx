@@ -45,9 +45,13 @@ export const TodoList: React.FC = () => {
 
       <tbody>
         {visibleTodos.length <= 0 && (
-          <p className="notification is-warning">
-            There are no todos matching current filter criteria
-          </p>
+          <tr>
+            <td colSpan={4}>
+              <p className="notification is-warning">
+                There are no todos matching current filter criteria
+              </p>
+            </td>
+          </tr>
         )}
 
         {visibleTodos.map(todo => {
